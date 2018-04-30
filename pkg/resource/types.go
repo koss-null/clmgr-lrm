@@ -8,4 +8,5 @@ const (
 	master
 	slave
 	clusterwide
+	clone
 )

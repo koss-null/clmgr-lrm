@@ -1,0 +1,50 @@
+---
+name: testResourceAgent1
+vaersion: 0.1
+longdesc: |
+        "this is a long description
+        of the first test resource agent
+        I'll add here some more strings
+        to make it look like all this
+        have some science"
+shortdesc: "it's a short description"
+
+parameters:
+  - active:
+      name: active
+      unique: yes
+      required: no
+      longdesc: "longdesc of active paramether"
+      content-type:
+        type: bool
+        default: false
+  - recovery-trottle:
+      name: recovery_throttle
+      unique: no
+      required: no
+      longdesc: "some nice description"
+      shortdesc: "some short descrption"
+      content-type:
+        type: int
+
+actions:
+  - start:
+      timeout: 60
+  - stop:
+      timeout: 60
+      on-fail: ignore
+  - notify
+  - demote
+  - promote
+  - monitor:
+      depth: 0
+      timeout: 60
+      interval: 20
+  - monitor:
+      role: Master
+      depth: 0
+      timeout: 60
+      interval: 20
+  - metha-data:
+      timeout: 5
+...
