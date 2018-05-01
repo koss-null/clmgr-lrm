@@ -1,7 +1,7 @@
 package configuration
 
 type (
-	agent_config struct {
+	agentConfig struct {
 		name       string
 		version    string
 		longdesc   string
@@ -11,8 +11,22 @@ type (
 	}
 
 	agent struct {
+		agentConfig
 	}
 
 	Agent interface {
+		Name() string
+		Version() string
+		LongDesc() string
+		ShortDesc() string
+
+		Start() error
+		Stop() error
+		Monitor() interface{}
+		Notify() error
+		Reload() error
+		Promote() error
+		Demote() error
+		MethaData() interface{}
 	}
 )
