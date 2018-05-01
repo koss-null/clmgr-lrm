@@ -15,6 +15,8 @@ type (
 	}
 
 	Agent interface {
+		ParseConfig() error
+
 		Name() string
 		Version() string
 		LongDesc() string
@@ -30,3 +32,8 @@ type (
 		MethaData() interface{}
 	}
 )
+
+
+func CreateAgent(agentName string) Agent {
+
+}

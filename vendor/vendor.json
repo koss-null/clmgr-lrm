@@ -3,10 +3,32 @@
 	"ignore": "",
 	"package": [
 		{
+			"path": "get",
+			"revision": ""
+		},
+		{
+			"checksumSHA1": "omM6LI0Xym1uotfmmNUfIQzRtZw=",
+			"path": "github.com/BurntSushi/toml",
+			"revision": "a368813c5e648fee92e5f6c30e3944ff9d5e8895",
+			"revisionTime": "2017-06-26T11:06:00Z"
+		},
+		{
 			"checksumSHA1": "GHrmYDDBZUztywc4osB+81VVJLk=",
 			"path": "github.com/op/go-logging",
 			"revision": "970db520ece77730c7e4724c61121037378659d9",
 			"revisionTime": "2016-03-15T20:05:05Z"
+		},
+		{
+			"path": "go",
+			"revision": ""
+		},
+		{
+			"path": "http://github.com/BurntSushi/toml",
+			"revision": ""
+		},
+		{
+			"path": "https://github.com/BurntSushi/toml",
+			"revision": ""
 		}
 	],
 	"rootPath": "myproj.com/clmgr-lrm"
