@@ -1,17 +1,30 @@
 package configuration
 
+import (
+	"strings"
+	"io/ioutil"
+
+	"github.com/ghodss/yaml"
+
+	. "myproj.com/clmgr-lrm/config"
+	. "myproj.com/clmgr-lrm/pkg/common"
+)
+
+const configFormat = "yaml"
+
 type (
 	agentConfig struct {
-		name       string
-		version    string
-		longdesc   string
-		shortdesc  string
-		parameters []Parameter
-		actions    []Action
+		name            string      `yaml: "name"`
+		version         string      `yaml: "vertsion,omitempty"`
+		longdesc        string      `yaml: "longdesc,omitempty"`
+		shortdesc       string      `yaml: "shortdesc,omitempty"`
+		parameters      []Parameter `yaml: "parameters,omitempty"`
+		actions         []Action    `yaml: "actions,omitempty"`
 	}
 
 	agent struct {
-		agentConfig
+		config agentConfig
+		scriptPath string
 	}
 
 	Agent interface {
@@ -33,7 +46,92 @@ type (
 	}
 )
 
+/*
+	CreateAgent() takes the name of agent, which is expected to
+	be on default clmgr agent folder, parses it's config,
+	the config name should be tha same as the name of a script
+	with *.yaml extension at the end
+ */
+func CreateAgent(agentName string) (Agent, error) {
+	agentPath := strings.Join([]string{Config.AgentPath, agentName}, "/")
+	ag := agent{scriptPath: agentPath}
 
-func CreateAgent(agentName string) Agent {
+	if err := ag.ParseConfig(); err != nil {
+		Logger.Error("Failed to parse config for agent %s, err %s", agentName, err.Error())
+		return nil, err
+	}
 
+	return &ag, nil
+}
+
+func (ag *agent) ParseConfig() error {
+	configPath := strings.Join([]string{ag.scriptPath, configFormat}, ".")
+	data, err := ioutil.ReadFile(configPath)
+	if err != nil {
+		Logger.Error("Can't read config (%s) for agent %s, err: %s", configPath, ag.scriptPath, err.Error())
+		return err
+	}
+
+	if err := yaml.Unmarshal(data, &ag); err != nil {
+		Logger.Error("Can't unmarshall agent config %s, err: %s", configPath, err.Error())
+		return err
+	}
+	return nil
+}
+
+
+func (ag *agent) Name() string {
+	return ag.config.name
+}
+
+func (ag *agent) Version() string {
+	return ag.config.version
+}
+
+func (ag *agent) LongDesc() string {
+	return ag.config.longdesc
+}
+
+func (ag *agent) ShortDesc() string {
+	return ag.config.shortdesc
+}
+
+func (ag *agent) Start() error {
+	Logger.Info("Resource %s Start op is stubbed", ag.Name())
+	return nil
+}
+
+func (ag *agent) Stop() error {
+	Logger.Info("Resource %s Stop op is stubbed", ag.Name())
+	return nil
+}
+
+func (ag *agent) Monitor() interface{} {
+	Logger.Info("Resource %s Monitor op is stubbed", ag.Name())
+	return nil
+}
+
+func (ag *agent) Notify() error {
+	Logger.Info("Resource %s Notify op is stubbed", ag.Name())
+	return nil
+}
+
+func (ag *agent) Reload() error {
+	Logger.Info("Resource %s Reload op is stubbed", ag.Name())
+	return nil
+}
+
+func (ag *agent) Promote() error {
+	Logger.Info("Resource %s Promote op is stubbed", ag.Name())
+	return nil
+}
+
+func (ag *agent) Demote() error {
+	Logger.Info("Resource %s Demote op is stubbed", ag.Name())
+	return nil
+}
+
+func (ag *agent) MethaData() interface{} {
+	Logger.Info("Resource %s MethaData op is stubbed", ag.Name())
+	return nil
 }
