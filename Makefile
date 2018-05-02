@@ -4,6 +4,12 @@ all: build
 build:
 	/bin/bash -c "GOOS=linux go build -o ./build/clmgr-lrm -i ./"
 
+base-docker-build:
+	docker build -t clmgr-base ./dockerbase/
+
+docker-build: base-docker-build
+	docker build --no-cache .
+
 proto:
 	./protobuf/compile-proto.sh
 
