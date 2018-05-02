@@ -14,16 +14,16 @@ const configFormat = "yaml"
 
 type (
 	agentConfig struct {
-		name            string      `yaml: "name"`
-		version         string      `yaml: "vertsion,omitempty"`
-		longdesc        string      `yaml: "longdesc,omitempty"`
-		shortdesc       string      `yaml: "shortdesc,omitempty"`
-		parameters      []Parameter `yaml: "parameters,omitempty"`
-		actions         []Action    `yaml: "actions,omitempty"`
+		name       string      `yaml:"name"`
+		version    string      `yaml:"vertsion,omitempty"`
+		longdesc   string      `yaml:"longdesc,omitempty"`
+		shortdesc  string      `yaml:"shortdesc,omitempty"`
+		parameters []Parameter `yaml:"parameters,omitempty"`
+		actions    []Action    `yaml:"actions,omitempty"`
 	}
 
 	agent struct {
-		config agentConfig
+		config     agentConfig
 		scriptPath string
 	}
 
@@ -78,7 +78,6 @@ func (ag *agent) ParseConfig() error {
 	}
 	return nil
 }
-
 
 func (ag *agent) Name() string {
 	return ag.config.name
