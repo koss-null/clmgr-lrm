@@ -6,6 +6,8 @@
 .LSOverride
 .idea
 Icon
+test/debug
+test/config-debug.toml
 
 # Test binary, build with `go test -c`
 *.test

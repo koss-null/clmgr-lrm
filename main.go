@@ -17,10 +17,11 @@ func main() {
 		fmt.Println("can't init logger")
 		os.Exit(-1)
 	}
-	logger.Info("Logger have been initialised")
+	logger.Infof("Logger have been initialised")
 
-	_, err = configuration.CreateAgent("test_agent1")
+	ag, err := configuration.CreateAgent("test_agent1")
 	if err != nil {
-		logger.Error("Agent creation failed with error %s", err.Error())
+		logger.Errorf("Agent creation failed with error %s", err.Error())
 	}
+	fmt.Println(ag)
 }
