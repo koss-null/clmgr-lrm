@@ -1,1 +1,2 @@
 AgentPath = /opt/clmgr/agents/
+LogPath = /var/log/cluster-manager.log

@@ -1,31 +1,18 @@
 package common
 
 import (
-	"github.com/op/go-logging"
-	"io"
 	"os"
-	"fmt"
-)
-
-var Logger = logging.MustGetLogger("example")
-
-var format = logging.MustStringFormatter(
-	`%{color}%{time:15:04:05.000} %{shortfunc} ▶ %{level:.4s} %{id:03x}%{color:reset} %{message}`,
+	. "myproj.com/clmgr-lrm/config"
+	"github.com/google/logger"
 )
 
 func InitLogger() error {
-	f, err := os.Create("/var/log/cluster-manager.log")
+	lf, err := os.OpenFile(Config.LogPath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0660)
 	if err != nil {
-		fmt.Println("Can't create log file")
-		return err
+		logger.Fatalf("Failed to open log file: %v", err)
 	}
-	writer := io.Writer(f)
-	backend := logging.NewLogBackend(writer, "",0)
-	backendFormatter := logging.NewBackendFormatter(backend, format)
-	backendLevel := logging.AddModuleLevel(backend)
-	backendLevel.SetLevel(logging.ERROR, "")
 
-	logging.SetBackend(backendLevel, backendFormatter)
+	logger.Init("Logger",  false, true, lf)
 
 	return nil
 }

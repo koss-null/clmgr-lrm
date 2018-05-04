@@ -7,7 +7,7 @@ import (
 	"github.com/ghodss/yaml"
 
 	. "myproj.com/clmgr-lrm/config"
-	. "myproj.com/clmgr-lrm/pkg/common"
+	"github.com/google/logger"
 )
 
 const configFormat = "yaml"
@@ -57,7 +57,7 @@ func CreateAgent(agentName string) (Agent, error) {
 	ag := agent{scriptPath: agentPath}
 
 	if err := ag.ParseConfig(); err != nil {
-		Logger.Error("Failed to parse config for agent %s, err %s", agentName, err.Error())
+		logger.Error("Failed to parse config for agent %s, err %s", agentName, err.Error())
 		return nil, err
 	}
 
@@ -68,12 +68,12 @@ func (ag *agent) ParseConfig() error {
 	configPath := strings.Join([]string{ag.scriptPath, configFormat}, ".")
 	data, err := ioutil.ReadFile(configPath)
 	if err != nil {
-		Logger.Error("Can't read config (%s) for agent %s, err: %s", configPath, ag.scriptPath, err.Error())
+		logger.Error("Can't read config (%s) for agent %s, err: %s", configPath, ag.scriptPath, err.Error())
 		return err
 	}
 
 	if err := yaml.Unmarshal(data, &ag); err != nil {
-		Logger.Error("Can't unmarshall agent config %s, err: %s", configPath, err.Error())
+		logger.Error("Can't unmarshall agent config %s, err: %s", configPath, err.Error())
 		return err
 	}
 	return nil
@@ -96,41 +96,41 @@ func (ag *agent) ShortDesc() string {
 }
 
 func (ag *agent) Start() error {
-	Logger.Info("Resource %s Start op is stubbed", ag.Name())
+	logger.Info("Resource %s Start op is stubbed", ag.Name())
 	return nil
 }
 
 func (ag *agent) Stop() error {
-	Logger.Info("Resource %s Stop op is stubbed", ag.Name())
+	logger.Info("Resource %s Stop op is stubbed", ag.Name())
 	return nil
 }
 
 func (ag *agent) Monitor() interface{} {
-	Logger.Info("Resource %s Monitor op is stubbed", ag.Name())
+	logger.Info("Resource %s Monitor op is stubbed", ag.Name())
 	return nil
 }
 
 func (ag *agent) Notify() error {
-	Logger.Info("Resource %s Notify op is stubbed", ag.Name())
+	logger.Info("Resource %s Notify op is stubbed", ag.Name())
 	return nil
 }
 
 func (ag *agent) Reload() error {
-	Logger.Info("Resource %s Reload op is stubbed", ag.Name())
+	logger.Info("Resource %s Reload op is stubbed", ag.Name())
 	return nil
 }
 
 func (ag *agent) Promote() error {
-	Logger.Info("Resource %s Promote op is stubbed", ag.Name())
+	logger.Info("Resource %s Promote op is stubbed", ag.Name())
 	return nil
 }
 
 func (ag *agent) Demote() error {
-	Logger.Info("Resource %s Demote op is stubbed", ag.Name())
+	logger.Info("Resource %s Demote op is stubbed", ag.Name())
 	return nil
 }
 
 func (ag *agent) MethaData() interface{} {
-	Logger.Info("Resource %s MethaData op is stubbed", ag.Name())
+	logger.Info("Resource %s MethaData op is stubbed", ag.Name())
 	return nil
 }

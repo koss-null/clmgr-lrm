@@ -2,21 +2,23 @@ package config
 
 import (
 	"github.com/BurntSushi/toml"
-	"myproj.com/clmgr-lrm/pkg/common"
 	"os"
+	"fmt"
 )
 
-const configFile = "/opt/clmgr/config/config.toml"
+// const configFile = "/opt/clmgr/config/config.toml"
+const configFile = "config/config-debug.toml"
 
 type config struct {
 	AgentPath string
+	LogPath   string
 }
 
 var Config config
 
 func InitConfig() {
 	if _, err := toml.DecodeFile(configFile, &Config); err != nil {
-		common.Logger.Error("Can't parse config, error %s", err.Error())
+		fmt.Printf("Can't parse config, error %s\n", err.Error())
 		os.Exit(1)
 	}
 }

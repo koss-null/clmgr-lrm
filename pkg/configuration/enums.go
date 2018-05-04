@@ -4,6 +4,7 @@ import (
 	"github.com/ghodss/yaml"
 	. "myproj.com/clmgr-lrm/pkg/common"
 	"errors"
+	"github.com/google/logger"
 )
 
 // Actions
@@ -40,7 +41,7 @@ func (a *actionType) GetActionType(at string) error {
 	case "methadata":
 		*a = at_methaData
 	default:
-		Logger.Error("Can't parse action type")
+		logger.Error("Can't parse action type")
 		return errors.New("failed to parse action type")
 	}
 
@@ -62,7 +63,7 @@ func (a *onFailAction) UnmarshallYAML(b []byte) error {
 	param := make(map[string]string)
 	err := yaml.Unmarshal(b, &param)
 	if err != nil {
-		Logger.Error("Can't unmarshal onfail action from yaml, err: %s", err.Error())
+		logger.Error("Can't unmarshal onfail action from yaml, err: %s", err.Error())
 		return err
 	}
 
@@ -100,7 +101,7 @@ func (a *actionRole) UnmarshallYAML(b []byte) error {
 	param := make(map[string]string)
 	err := yaml.Unmarshal(b, &param)
 	if err != nil {
-		Logger.Error("Can't unmarshal parameters from yaml, err: %s", err.Error())
+		logger.Error("Can't unmarshal parameters from yaml, err: %s", err.Error())
 		return err
 	}
 
@@ -114,7 +115,7 @@ func (a *actionRole) UnmarshallYAML(b []byte) error {
 	case "slave":
 		*a = ar_slave
 	default:
-		Logger.Error("Can't unmarshal actions from yaml")
+		logger.Error("Can't unmarshal actions from yaml")
 		return errors.New("failed to unmarshal action")
 	}
 
@@ -135,7 +136,7 @@ func (t *contentType) UnmarshallYAML(b []byte) error {
 	param := make(map[string]string)
 	err := yaml.Unmarshal(b, &param)
 	if err != nil {
-		Logger.Error("Can't unmarshal parameters from yaml, err: %s", err.Error())
+		logger.Error("Can't unmarshal parameters from yaml, err: %s", err.Error())
 		return err
 	}
 
@@ -149,7 +150,7 @@ func (t *contentType) UnmarshallYAML(b []byte) error {
 	case "bool":
 		*t = ct_bool
 	default:
-		Logger.Error("Can't unmarshal parameters from yaml")
+		logger.Error("Can't unmarshal parameters from yaml")
 		return errors.New("failed to unmarshal parameter")
 	}
 

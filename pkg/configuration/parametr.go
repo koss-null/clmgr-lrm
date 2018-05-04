@@ -1,12 +1,13 @@
 package configuration
 
 import (
-	"gopkg.in/yaml.v2"
 
-	. "myproj.com/clmgr-lrm/pkg/common"
 	"reflect"
 	"strings"
 	"errors"
+
+	"gopkg.in/yaml.v2"
+	"github.com/google/logger"
 )
 
 const stringTag = "string"
@@ -39,7 +40,7 @@ func (p *Parameter) UnmarshalYAML(b []byte) error {
 	param := make(map[string]interface{})
 	err := yaml.Unmarshal(b, &param)
 	if err != nil {
-		Logger.Error("Can't unmarshall parameters from yaml, err: %s", err.Error())
+		logger.Error("Can't unmarshall parameters from yaml, err: %s", err.Error())
 		return err
 	}
 
@@ -48,7 +49,7 @@ func (p *Parameter) UnmarshalYAML(b []byte) error {
 		str := prmType.Field(i).Tag.Get(stringTag)
 		strs := strings.Split(str, ",")
 		if len(strs) == 0 {
-			Logger.Debug("WARNING: there is no tag for parameter field")
+			logger.Warning("WARNING: there is no tag for parameter field")
 			continue
 		}
 
@@ -56,7 +57,7 @@ func (p *Parameter) UnmarshalYAML(b []byte) error {
 			val, ok := param[strs[0]]
 			// if there is no such value and no ommitempty
 			if !ok && len(strs) == 1 {
-				Logger.Error("Can't get necessary field %s from YAML", strs[0])
+				logger.Error("Can't get necessary field %s from YAML", strs[0])
 				return nil, errors.New("failed to unmarshal yaml")
 			}
 			return val, nil
@@ -118,8 +119,9 @@ func (p *Parameter) UnmarshalYAML(b []byte) error {
 			}
 			p.shortdesc = val.(string)
 		default:
-			Logger.Debug("WARNING: %s field haven't been prepared to deserialisation from YAML", strs[0])
+			logger.Warning("WARNING: %s field haven't been prepared to deserialisation from YAML", strs[0])
 		}
 	}
 
+	return nil
 }
