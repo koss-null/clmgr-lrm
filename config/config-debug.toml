@@ -1,2 +1,2 @@
-AgentPath = "test/test-agents"
+AgentPath = "test/test_agents"
 LogPath = "config/debug/log.log"
