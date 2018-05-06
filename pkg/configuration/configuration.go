@@ -2,11 +2,12 @@ package configuration
 
 import (
 	"strings"
+	"io/ioutil"
+
 	. "myproj.com/clmgr-lrm/config"
 
-	"github.com/go-yaml/yaml"
 	"github.com/google/logger"
-	"io/ioutil"
+	"gopkg.in/yaml.v2"
 )
 
 const configFormat = "yaml"
@@ -45,6 +46,17 @@ type (
 	}
 )
 
+func defaultConfig() agentConfig {
+	return agentConfig{Version: "none"}
+}
+
+func defaultAgent(path string) agent {
+	return agent{
+		scriptPath: path,
+		Config:     defaultConfig(),
+	}
+}
+
 /*
 	CreateAgent() takes the Name of agent, which is expected to
 	be on default clmgr agent folder, parses it's Config,
@@ -53,7 +65,7 @@ type (
  */
 func CreateAgent(agentName string) (Agent, error) {
 	agentPath := strings.Join([]string{Config.AgentPath, agentName}, "/")
-	ag := agent{scriptPath: agentPath} // todo add here method to set default values
+	ag := defaultAgent(agentPath)
 
 	if err := ag.ParseConfig(); err != nil {
 		logger.Errorf("Failed to parse Config for agent %s, err %s", agentName, err.Error())

@@ -12,8 +12,7 @@ import (
 
 func main() {
 	config.InitConfig()
-	err := common.InitLogger()
-	if err != nil {
+	if err := common.InitLogger(); err != nil {
 		fmt.Println("can't init logger")
 		os.Exit(-1)
 	}

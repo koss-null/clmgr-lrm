@@ -29,7 +29,8 @@ const (
 type actionRole string
 
 const (
-	ar_started actionRole = "started"
+	ar_none    actionRole = "none"
+	ar_started            = "started"
 	ar_stopped            = "stopped"
 	ar_master             = "master"
 	ar_slave              = "slave"
