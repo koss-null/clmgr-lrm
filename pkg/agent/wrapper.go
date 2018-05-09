@@ -2,6 +2,7 @@ package agent
 
 import (
 	. "myproj.com/clmgr-lrm/pkg/common"
+	"errors"
 )
 
 type Wrapper interface {
@@ -16,4 +17,5 @@ func (ag *agent) Do(act Action) (interface{}, error) {
 		}
 		return res, nil
 	}
+	return nil, errors.New("the action doesn't provided for this agent")
 }

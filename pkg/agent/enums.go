@@ -45,3 +45,35 @@ const (
 	ct_string             = "string"
 	ct_bool               = "bool"
 )
+
+type ContentType struct {
+	Ct  contentType `yaml:"type"`
+	Def interface{} `yaml:"default,omitempty"`
+}
+
+func (ct *ContentType) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	// creating anonimus struct to avoid recursion
+	var a struct {
+		Ct  contentType `yaml:"type"`
+		Def interface{} `yaml:"default,omitempty"`
+	}
+	if err := unmarshal(&a); err != nil {
+		return err
+	}
+	ct.Ct = a.Ct
+	if a.Def == nil {
+		ct.Def = nil
+		return nil
+	}
+	switch a.Ct {
+	case ct_int:
+		ct.Def = a.Def.(int)
+	case ct_float:
+		ct.Def = a.Def.(float32)
+	case ct_string:
+		ct.Def = a.Def.(string)
+	case ct_bool:
+		ct.Def = a.Def.(bool)
+	}
+	return nil
+}
