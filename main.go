@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/google/logger"
 	"myproj.com/clmgr-lrm/config"
 	"myproj.com/clmgr-lrm/pkg/common"
-	"myproj.com/clmgr-lrm/pkg/configuration"
-	"github.com/google/logger"
+	"myproj.com/clmgr-lrm/pkg/agent"
 )
 
 func main() {
@@ -18,9 +18,10 @@ func main() {
 	}
 	logger.Infof("Logger have been initialised")
 
-	ag, err := configuration.CreateAgent("test_agent1")
+	ag, err := agent.Create("test_agent1")
 	if err != nil {
 		logger.Errorf("Agent creation failed with error %s", err.Error())
 	}
 	fmt.Println(ag)
+	
 }

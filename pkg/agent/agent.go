@@ -1,4 +1,4 @@
-package configuration
+package agent
 
 import (
 	"strings"
@@ -43,6 +43,8 @@ type (
 		Promote() error
 		Demote() error
 		MethaData() interface{}
+
+		Do(Action) (interface{}, error)
 	}
 )
 
@@ -50,8 +52,8 @@ func defaultConfig() agentConfig {
 	return agentConfig{Version: "none"}
 }
 
-func defaultAgent(path string) agent {
-	return agent{
+func defaultAgent(path string) Agent {
+	return &agent{
 		scriptPath: path,
 		Config:     defaultConfig(),
 	}
@@ -63,7 +65,7 @@ func defaultAgent(path string) agent {
 	the Config Name should be tha same as the Name of a script
 	with *.yaml extension at the end
  */
-func CreateAgent(agentName string) (Agent, error) {
+func Create(agentName string) (Agent, error) {
 	agentPath := strings.Join([]string{Config.AgentPath, agentName}, "/")
 	ag := defaultAgent(agentPath)
 
@@ -72,7 +74,7 @@ func CreateAgent(agentName string) (Agent, error) {
 		return nil, err
 	}
 
-	return &ag, nil
+	return ag, nil
 }
 
 func (ag *agent) ParseConfig() error {
@@ -86,6 +88,11 @@ func (ag *agent) ParseConfig() error {
 	if err := yaml.Unmarshal(data, ag); err != nil {
 		logger.Errorf("Can't unmarshall agent Config %s, err: %s", ag.scriptPath, err.Error())
 		return err
+	}
+
+	// accotiating actions with current agent
+	for i := range ag.Config.Actions {
+		ag.Config.Actions[i].personalizeAction(ag)
 	}
 
 	return nil

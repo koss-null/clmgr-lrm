@@ -1,4 +1,4 @@
-package configuration
+package agent
 
 import (
 	"time"
@@ -23,8 +23,12 @@ type Action struct {
 	Enabled       bool          `yaml:"enabled,omitempty"`
 	RecordPending bool          `yaml:"record-pending,omitempty"`
 	Role          actionRole    `yaml:"role,omitempty"`
+	Operation     func() (interface{})
 }
 
+/*
+	Performs unmarshalling Action with setting default values
+ */
 func (act *Action) UnmarshalYAML(unmarshal func(interface{}) error) error {
 	// creating anonimus struct to avoid recursion
 	var a struct {
@@ -48,7 +52,36 @@ func (act *Action) UnmarshalYAML(unmarshal func(interface{}) error) error {
 		return err
 	}
 	// copying into aim struct fields
-	*act = Action{a.Name,a.Timeout, a.OnFail, a.Interval,
-	a.Enabled, a.RecordPending, a.Role}
+	*act = Action{a.Name, a.Timeout, a.OnFail, a.Interval,
+		a.Enabled, a.RecordPending, a.Role, nil}
 	return nil
+}
+
+func wrapError(f func() error) func() interface{} {
+	return func() interface{} {
+		return f()
+	}
+}
+
+func (act *Action) personalizeAction(ag *agent) {
+	for i := range ag.Config.Actions {
+		switch ag.Config.Actions[i].Name {
+		case at_start:
+			ag.Config.Actions[i].Operation = wrapError(ag.Start)
+		case at_stop:
+			ag.Config.Actions[i].Operation = wrapError(ag.Stop)
+		case at_monitor:
+			ag.Config.Actions[i].Operation = ag.Monitor
+		case at_notify:
+			ag.Config.Actions[i].Operation = wrapError(ag.Notify)
+		case at_reload:
+			ag.Config.Actions[i].Operation = wrapError(ag.Reload)
+		case at_promote:
+			ag.Config.Actions[i].Operation = wrapError(ag.Promote)
+		case at_demote:
+			ag.Config.Actions[i].Operation = wrapError(ag.Demote)
+		case at_methaData:
+			ag.Config.Actions[i].Operation = ag.MethaData
+		}
+	}
 }

@@ -1,4 +1,4 @@
-package configuration
+package agent
 
 type Parameter struct {
 	Name      string      `yaml:"name"`
