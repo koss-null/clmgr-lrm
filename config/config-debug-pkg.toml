@@ -1,0 +1,2 @@
+AgentPath = "../../test/test_agents"
+LogPath = "../../config/debug/log.log"

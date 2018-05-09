@@ -23,7 +23,7 @@ parameters:
     unique: no
     required: no
     longdesc: "some nice description"
-    shortdesc: "some short descrption"
+    shortdesc: "some short description"
     content-type:
       type: int
 
@@ -48,7 +48,7 @@ actions:
     interval: 20s
   - action:
     type: monitor
-    role: Master
+    role: master
     depth: 0
     timeout: 60s
     interval: 20s

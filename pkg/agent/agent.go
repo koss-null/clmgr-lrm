@@ -29,6 +29,7 @@ type (
 
 	Agent interface {
 		ParseConfig() error
+		getConfig() agentConfig
 
 		Name() string
 		Version() string
@@ -96,6 +97,10 @@ func (ag *agent) ParseConfig() error {
 	}
 
 	return nil
+}
+
+func (ag *agent) getConfig() agentConfig {
+	return ag.Config
 }
 
 func (ag *agent) Name() string {

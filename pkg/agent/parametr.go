@@ -6,5 +6,5 @@ type Parameter struct {
 	Required  bool        `yaml:"required"`
 	ContType  ContentType `yaml:"content-type"`
 	Longdesc  string      `yaml:"longdesc,omitempty"`
-	Shortdesc string      `yaml:"shrotdesc,omitempty"`
+	Shortdesc string      `yaml:"shortdesc,omitempty"`
 }
