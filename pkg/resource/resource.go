@@ -9,7 +9,7 @@ type (
 		stop func() error
 		restart func() error
 		monitor func() (<-chan []byte, <-chan error)
-		methadata func([]byte) error
+		metadata func([]byte) error
 	}
 
 	Resource interface {
@@ -17,7 +17,7 @@ type (
 		stop() error
 		restart() error
 		monitor() (<-chan interface{}, <-chan error)
-		methadata(ResourceMetha) error
+		metadata(ResourceMetha) error
 	}
 )
 

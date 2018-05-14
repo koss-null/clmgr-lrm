@@ -111,7 +111,7 @@ var _ = Describe("ParseConfig", func() {
 							Role:          ar_master,
 						},
 						{
-							Name:          at_methaData,
+							Name:          at_metaData,
 							Timeout:       time.Duration(5 * time.Second),
 							OnFail:        of_ignore,
 							Interval:      time.Duration(20 * time.Second),

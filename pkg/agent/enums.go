@@ -12,7 +12,7 @@ const (
 	at_promote              = "promote"
 	at_demote               = "demote"
 	at_monitor              = "monitor"
-	at_methaData            = "metha-data"
+	at_metaData            = "meta-data"
 )
 
 type onFailAction string

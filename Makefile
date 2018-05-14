@@ -8,7 +8,7 @@ base-docker-build:
 	docker build -t clmgr-base ./dockerbase/
 
 docker-build: base-docker-build
-	docker build --no-cache .
+	docker build -t clmgr-lrm --no-cache .
 
 proto:
 	./protobuf/compile-proto.sh

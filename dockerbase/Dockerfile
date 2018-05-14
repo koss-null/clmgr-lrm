@@ -1,10 +1,9 @@
-FROM opensuse
+FROM ubuntu
 
 ARG REQUIRED_ARGUMENT
 
 # getting out sourcecode
 ##############################
-RUN zypper in -y go go-doc && zypper in -y make
 
 ##############################
 

@@ -2,7 +2,7 @@ package common
 
 import (
 	"reflect"
-	"b.yadro.com/storlib/logger"
+	"github.com/google/logger"
 )
 
 /*

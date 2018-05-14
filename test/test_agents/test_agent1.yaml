@@ -53,6 +53,6 @@ actions:
     timeout: 60s
     interval: 20s
   - action:
-    type: metha-data
+    type: meta-data
     timeout: 5s
 ...

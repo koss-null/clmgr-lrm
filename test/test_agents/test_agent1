@@ -1,0 +1,56 @@
+#!/bin/bash
+
+function start {
+    systemctl start test_agent1
+}
+
+function stop {
+    systemctl stop test_agent1
+}
+
+function notify {
+    echo "notify stubbed"
+}
+
+function demote {
+    echo "Doing nothing on demote"
+}
+
+function promote {
+    echo "doing nothing on promote"
+}
+
+function monitor {
+    loaded=`systemctl status test_agent1 | grep "Loaded" | awk '{print $2}'`
+    active=`systemctl status test_agent1 | grep "Active" | awk '{print $2}'`
+    return '{"Loaded":"$loaded", "Active":"$active"}'
+}
+
+function metaData {
+    cpu_usage=`ps aux | grep "test_agent1" | awk '{print $3}'`
+    return '{"process-name": "test_agent1", "cpu": $cpu_usage}'
+}
+
+case $CLM_OPERATION in
+"start")
+    start()
+;;
+"stop")
+    stop()
+;;
+"notify")
+    notify()
+;;
+"demote")
+    demote()
+;;
+"promote")
+    promote()
+;;
+"monitor")
+    monitor()
+;;
+"meta-data")
+    metaData()
+;;
+esac

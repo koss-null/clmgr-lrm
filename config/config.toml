@@ -1,2 +1,2 @@
-AgentPath = /opt/clmgr/agents/
-LogPath = /var/log/cluster-manager.log
+AgentPath = "/opt/clmgr/agents/"
+LogPath = "/var/log/cluster-manager.log"

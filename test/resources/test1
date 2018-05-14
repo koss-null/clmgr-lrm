@@ -1,0 +1,11 @@
+#!/bin/bash
+
+while [[ 1 == 1 ]]; do
+    echo "test1 working"
+    sleep 0.1
+    v=0
+    for i in {1..100}; do
+       v=$v+$i # getting one long string
+    done
+    echo $v
+done
