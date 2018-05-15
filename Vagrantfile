@@ -20,6 +20,8 @@ echo "10.10.10.4    node2" >> /etc/hosts
 echo "10.10.10.5    node3" >> /etc/hosts
 
 #provision dependencies
+sudo zypper addrepo http://download.opensuse.org/distribution/11.4/repo/oss/ oss
+sudo zypper addrepo http://download.opensuse.org/distribution/openSUSE-stable/repo/oss/ oss1
 sudo zypper update
 sudo zypper in -y go go-doc
 
@@ -42,17 +44,17 @@ Vagrant.configure("2") do |global_config|
 
 
             # workaround of ssh problem
-            #config.ssh.private_key_path = "~/.ssh/id_rsa"
+            config.ssh.private_key_path = "~/.ssh/id_rsa"
             #config.ssh.forward_agent = true
-            #config.ssh.username = "root"
-            #config.ssh.password = "vagrant"
+            config.ssh.username = "root"
+            config.ssh.password = "vagrant"
             #config.ssh.insert_key = true
 
             config.vm.box = "suse/sles12sp1"
             config.vm.hostname = "#{name}"
             config.vm.network :private_network, ip: options[:ipaddress]
 
-            #config.vm.synced_folder '.', '/vagrant', disabled: true
+            config.vm.synced_folder '.', '/vagrant'
 
             config.vm.provider :virtualbox do |v|
                 v.customize ["modifyvm", :id, "--memory", "1536"]
