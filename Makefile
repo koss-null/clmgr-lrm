@@ -4,11 +4,9 @@ all: build
 build:
 	/bin/bash -c "GOOS=linux go build -o ./build/clmgr-lrm -i ./"
 
-base-docker-build:
-	docker build -t clmgr-base ./dockerbase/
-
-docker-build: base-docker-build
-	docker build -t clmgr-lrm --no-cache .
+vagrant:
+	/bin/bash -c "(vagrant up node1 || true) && (vagrant up node2 || true) && (vagrant up node3 || true) && vagrant \
+	provision"
 
 proto:
 	./protobuf/compile-proto.sh
