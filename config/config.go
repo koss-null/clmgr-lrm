@@ -6,8 +6,8 @@ import (
 	"fmt"
 )
 
-const configFile = "/opt/clmgr/config/config.toml"
-// const configFile = "config/config-debug.toml"
+//const configFile = "/opt/clmgr/config/config.toml"
+const configFile = "config/config-debug.toml"
 // 4 testing inside pkg
 //const configFile = "../../config/config-debug-pkg.toml"
 
