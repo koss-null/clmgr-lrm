@@ -9,7 +9,7 @@ vagrant:
 	provision"
 
 refresh:
-    vagrant provision
+	vagrant provision
 
 proto:
 	./protobuf/compile-proto.sh
