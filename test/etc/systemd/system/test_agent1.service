@@ -4,9 +4,9 @@ After=network.target
 
 [Service]
 Type=simple
-User=rot
-WorkingDirectory=/home/
-ExecStart=/home/test1 --option=123
+User=root
+WorkingDirectory=/opt/clmgr/resources/
+ExecStart=/opt/clmgr/resources/test1 --option=123
 Restart=on-failure # or always, on-abort, etc
 
 [Install]

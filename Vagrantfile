@@ -66,6 +66,8 @@ Vagrant.configure("2") do |global_config|
             config.vm.provision :file, source: "./config/config.toml", destination: "/opt/clmgr/config/config.toml",run: "always"
             #agents
             config.vm.provision :file, source: "./test/agents/", destination: "/opt/clmgr/", run: "always"
+            config.vm.provision :file, source: "./test/resources/", destination: "/opt/clmgr/", run: "always"
+            config.vm.provision :file, source: "./test/etc/", destination: "/", run: "always"
         end
     end
 end

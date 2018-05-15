@@ -5,7 +5,7 @@ build:
 	/bin/bash -c "GOOS=linux go build -o ./build/clmgr-lrm -i ./"
 
 vagrant:
-	/bin/bash -c "(vagrant up node1 || true) && (vagrant up node2 || true) && (vagrant up node3 || true) && vagrant \
+	/bin/bash -c "((vagrant up node1 || true) & (vagrant up node2 || true) & (vagrant up node3 || true) )&& vagrant \
 	provision"
 
 refresh:

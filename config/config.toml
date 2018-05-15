@@ -1,2 +1,3 @@
 AgentPath = "/opt/clmgr/agents/"
+ResourcesPath = "/opt/clmgr/resources/"
 LogPath = "/var/log/cluster-manager.log"
