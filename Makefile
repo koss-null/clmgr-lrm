@@ -8,6 +8,9 @@ vagrant:
 	/bin/bash -c "(vagrant up node1 || true) && (vagrant up node2 || true) && (vagrant up node3 || true) && vagrant \
 	provision"
 
+refresh:
+    vagrant provision
+
 proto:
 	./protobuf/compile-proto.sh
 
