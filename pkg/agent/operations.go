@@ -14,7 +14,6 @@ const (
 	def_monitor_timeout = time.Duration(20 * time.Second)
 )
 
-// TODO: it's gonna be a bug if we'll do some actions in one time. Should classify this var
 const (
 	svn_operation = "CLM_OPERATION"
 )
@@ -26,7 +25,7 @@ func (ag *agent) Start() error {
 		return x.(Action).Name
 	}); isIn != -1 {
 		e.SetTimeout(act.(Action).Timeout)
-		os.Setenv(svn_operation, "start")
+		os.Setenv(svn_operation+ag.Name(), "start")
 		e.SetOp([]string{ag.scriptPath})
 		_, err := e.Exec()
 		if err != nil {
@@ -57,7 +56,7 @@ func (ag *agent) Stop() error {
 	e := NewExecutor()
 	if isIn, act := GetFromSlice(ToInterface(ag.Config.Actions), at_stop); isIn != -1 {
 		e.SetTimeout(act.(Action).Timeout)
-		os.Setenv(svn_operation, "stop")
+		os.Setenv(svn_operation+ag.Name(), "stop")
 		e.SetOp([]string{ag.scriptPath})
 		_, err := e.Exec()
 		if err != nil {
@@ -88,7 +87,7 @@ func (ag *agent) Monitor() interface{} {
 	e := NewExecutor()
 	if isIn, act := GetFromSlice(ToInterface(ag.Config.Actions), at_monitor); isIn != -1 {
 		e.SetTimeout(act.(Action).Timeout)
-		os.Setenv(svn_operation, "monitor")
+		os.Setenv(svn_operation+ag.Name(), "monitor")
 		e.SetOp([]string{ag.scriptPath})
 		res, err := e.Exec()
 		if err != nil {
@@ -121,7 +120,7 @@ func (ag *agent) Notify() error {
 	e := NewExecutor()
 	if isIn, act := GetFromSlice(ToInterface(ag.Config.Actions), at_notify); isIn != -1 {
 		e.SetTimeout(act.(Action).Timeout)
-		os.Setenv(svn_operation, "notify")
+		os.Setenv(svn_operation+ag.Name(), "notify")
 		e.SetOp([]string{ag.scriptPath})
 		_, err := e.Exec()
 		if err != nil {
@@ -158,7 +157,7 @@ func (ag *agent) MetaData() interface{} {
 	e := NewExecutor()
 	if isIn, act := GetFromSlice(ToInterface(ag.Config.Actions), at_monitor); isIn != -1 {
 		e.SetTimeout(act.(Action).Timeout)
-		os.Setenv(svn_operation, "meta-data")
+		os.Setenv(svn_operation+ag.Name(), "meta-data")
 		e.SetOp([]string{ag.scriptPath})
 		res, err := e.Exec()
 		if err != nil {

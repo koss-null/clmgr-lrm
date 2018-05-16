@@ -31,10 +31,7 @@ function metaData {
     return '{"process-name": "test_agent1", "cpu": $cpu_usage}'
 }
 
-echo "SCRIPT WAS CALLED" > /logll
-echo $CLM_OPERATION >> logll
-
-case $CLM_OPERATION in
+case $CLM_OPERATIONtest_agent1 in
 "start")
     start
 ;;
