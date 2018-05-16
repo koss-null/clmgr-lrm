@@ -8,6 +8,7 @@ import (
 	"myproj.com/clmgr-lrm/config"
 	"myproj.com/clmgr-lrm/pkg/common"
 	"myproj.com/clmgr-lrm/pkg/agent"
+	"time"
 )
 
 func main() {
@@ -23,5 +24,8 @@ func main() {
 		logger.Errorf("Agent creation failed with error %s", err.Error())
 	}
 	fmt.Println(ag)
-	
+
+	ag.Start()
+	time.Sleep(10 * time.Second)
+	ag.Stop()
 }

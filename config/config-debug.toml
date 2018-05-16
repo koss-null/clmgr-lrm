@@ -1,2 +1,3 @@
 AgentPath = "test/agents"
+ResourcesPath = "test/resources"
 LogPath = "config/debug/log.log"

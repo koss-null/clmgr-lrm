@@ -11,6 +11,9 @@ vagrant:
 refresh:
 	vagrant provision > /dev/null
 
+halt:
+	vagrant halt
+
 proto:
 	./protobuf/compile-proto.sh
 

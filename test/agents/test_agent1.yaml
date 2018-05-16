@@ -1,5 +1,5 @@
 ---
-name: testResourceAgent1
+name: test_agent1
 version: "0.1"
 longdesc: |
         "this is a long description

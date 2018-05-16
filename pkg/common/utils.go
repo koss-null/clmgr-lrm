@@ -19,10 +19,20 @@ func GetFromSlice(items []interface{}, item interface{}) (int, interface{}) {
 	return -1, nil
 }
 
+func GetFromSliceF(items []interface{}, item interface{}, fn func(interface{}) interface{}) (int, interface{}) {
+	for i := range items {
+		if reflect.DeepEqual(fn(items[i]), item) {
+			return i, items[i]
+		}
+	}
+	return -1, nil
+}
+
+
 /*
-	InterfaceSlice() turns slice []T into []interface{}
+	ToInterface() turns slice []T into []interface{}
  */
-func InterfaceSlice(slice interface{}) []interface{} {
+func ToInterface(slice interface{}) []interface{} {
 	s := reflect.ValueOf(slice)
 	if s.Kind() != reflect.Slice {
 		logger.Error("There wasn't a slice sent as an argument to InterfaceSlice")

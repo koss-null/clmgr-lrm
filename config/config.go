@@ -6,14 +6,16 @@ import (
 	"fmt"
 )
 
-//const configFile = "/opt/clmgr/config/config.toml"
-const configFile = "config/config-debug.toml"
+const configFile = "/opt/clmgr/config/config.toml"
+//const configFile = "config/config-debug.toml"
+
 // 4 testing inside pkg
-//const configFile = "../../config/config-debug-pkg.toml"
+// const configFile = "../../config/config-debug-pkg.toml"
 
 type config struct {
-	AgentPath string
-	LogPath   string
+	AgentPath     string
+	ResourcesPath string
+	LogPath       string
 }
 
 var Config config

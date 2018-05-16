@@ -7,7 +7,7 @@ Type=simple
 User=root
 WorkingDirectory=/opt/clmgr/resources/
 ExecStart=/opt/clmgr/resources/test1 --option=123
-Restart=on-failure # or always, on-abort, etc
+Restart=no
 
 [Install]
 WantedBy=multi-user.target

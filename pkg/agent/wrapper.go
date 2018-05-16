@@ -10,7 +10,7 @@ type Wrapper interface {
 }
 
 func (ag *agent) Do(act Action) (interface{}, error) {
-	if _, item := GetFromSlice(InterfaceSlice(ag.Config.Actions), act); item != nil {
+	if _, item := GetFromSlice(ToInterface(ag.Config.Actions), act); item != nil {
 		res := item.(Action).Operation()
 		if IsError(res) {
 			return nil, res.(error)
