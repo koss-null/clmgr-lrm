@@ -81,7 +81,7 @@ func (act *Action) personalizeAction(ag *agent) {
 		case at_demote:
 			ag.Config.Actions[i].Operation = wrapError(ag.Demote)
 		case at_metaData:
-			ag.Config.Actions[i].Operation = ag.MethaData
+			ag.Config.Actions[i].Operation = ag.MetaData
 		}
 	}
 }
