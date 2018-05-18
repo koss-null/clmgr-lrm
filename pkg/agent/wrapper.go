@@ -6,11 +6,14 @@ import (
 )
 
 type Wrapper interface {
-	Do(Action) (interface{}, error)
+	Do(ActionType) (interface{}, error)
 }
 
-func (ag *agent) Do(act Action) (interface{}, error) {
-	if _, item := GetFromSlice(ToInterface(ag.Config.Actions), act); item != nil {
+func (ag *agent) Do(act ActionType) (interface{}, error) {
+	if _, item := GetFromSliceF(ToInterface(ag.Config.Actions), act,
+		func(x interface{}) interface{} {
+			return x.(Action).Name
+		}); item != nil {
 		res := item.(Action).Operation()
 		if IsError(res) {
 			return nil, res.(error)

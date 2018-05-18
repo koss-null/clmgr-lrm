@@ -16,7 +16,7 @@ import (
 	role - specifies the role of resource on which the action will be performed
  */
 type Action struct {
-	Name          actionType    `yaml:"type"`
+	Name          ActionType    `yaml:"type"`
 	Timeout       time.Duration `yaml:"timeout,omitempty"`
 	OnFail        onFailAction  `yaml:"on-fail,omitempty"`
 	Interval      time.Duration `yaml:"interval,omitempty"`
@@ -32,7 +32,7 @@ type Action struct {
 func (act *Action) UnmarshalYAML(unmarshal func(interface{}) error) error {
 	// creating anonimus struct to avoid recursion
 	var a struct {
-		Name          actionType    `yaml:"type"`
+		Name          ActionType    `yaml:"type"`
 		Timeout       time.Duration `yaml:"timeout,omitempty"`
 		OnFail        onFailAction  `yaml:"on-fail,omitempty"`
 		Interval      time.Duration `yaml:"interval,omitempty"`

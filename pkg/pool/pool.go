@@ -1,4 +1,4 @@
-package agent_pool
+package pool
 
 import (
 	. "myproj.com/clmgr-lrm/pkg/agent"
@@ -13,7 +13,7 @@ type (
 	}
 
 	AgentPool interface {
-		Do(id string, act Action) (chan interface{}, chan error)
+		Do(id string, act ActionType) (chan interface{}, chan error)
 		Add(Agent) (uuid.UUID, error)
 		Remove(id uuid.UUID)
 	}
@@ -23,7 +23,7 @@ func NewPool() AgentPool {
 	return &agentPool{make(map[uuid.UUID]Wrapper)}
 }
 
-func (p *agentPool) Do(id string, act Action) (chan interface{}, chan error) {
+func (p *agentPool) Do(id string, act ActionType) (chan interface{}, chan error) {
 	res, errCh := make(chan interface{}), make(chan error)
 
 	go func() {

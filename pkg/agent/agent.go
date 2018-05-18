@@ -43,9 +43,9 @@ type (
 		Reload() error
 		Promote() error
 		Demote() error
-		MethaData() interface{}
+		MetaData() interface{}
 
-		Do(Action) (interface{}, error)
+		Do(ActionType) (interface{}, error)
 	}
 )
 

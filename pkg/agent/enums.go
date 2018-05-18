@@ -2,16 +2,16 @@ package agent
 
 // Actions
 
-type actionType string
+type ActionType string
 
 const (
-	at_start     actionType = "start"
-	at_stop                 = "stop"
-	at_notify               = "notify"
-	at_reload               = "reload"
-	at_promote              = "promote"
-	at_demote               = "demote"
-	at_monitor              = "monitor"
+	at_start    ActionType = "start"
+	at_stop                = "stop"
+	at_notify              = "notify"
+	at_reload              = "reload"
+	at_promote             = "promote"
+	at_demote              = "demote"
+	at_monitor             = "monitor"
 	at_metaData            = "meta-data"
 )
 
