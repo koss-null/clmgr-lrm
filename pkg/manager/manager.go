@@ -16,8 +16,13 @@ type (
 	}
 
 	Manager interface {
+		Run()
 	}
 )
+
+func NewManager() Manager {
+	return &manager{NewPool()}
+}
 
 func (m *manager) Run() {
 
