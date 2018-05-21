@@ -8,24 +8,52 @@ import (
 	"myproj.com/clmgr-lrm/pkg/agent"
 	"strings"
 	"github.com/google/logger"
+	"myproj.com/clmgr-lrm/pkg/db"
+	"myproj.com/clmgr-lrm/pkg/common"
+	"github.com/coreos/etcd/client"
 )
 
 type (
 	manager struct {
 		AgentPool
+		db.Client
 	}
 
 	Manager interface {
-		Run()
+		Run() chan interface{}
 	}
 )
 
 func NewManager() Manager {
-	return &manager{NewPool()}
+	return &manager{NewPool(), nil}
 }
 
-func (m *manager) Run() {
+const (
+	clmgrKey = "/cluster"
+)
 
+/*
+	Run() for manager start watching current node key to detect which
+	services are about to start on this node, and monitors all services
+	health
+ */
+func (m *manager) Run() chan interface{} {
+	cl := make(chan interface{})
+	go func() {
+		m.Client = db.NewClient()
+		hn := common.GetHostname()
+		key := strings.Join([]string{clmgrKey, hn}, "/")
+		wo := client.WatcherOptions{0, false}
+		event, errCh := m.Client.Watch(key, wo)
+		select {
+		case e := <-event:
+			logger.Infof("Got event %s", e)
+		case err := <-errCh:
+			logger.Errorf("Got error %s", err.Error())
+			close(cl)
+		}
+	}()
+	return cl
 }
 
 func serialize(tp ops.Operation2Perform_OperationType) agent.ActionType {

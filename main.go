@@ -8,7 +8,7 @@ import (
 	"myproj.com/clmgr-lrm/config"
 	"myproj.com/clmgr-lrm/pkg/common"
 	"myproj.com/clmgr-lrm/pkg/agent"
-	"time"
+	"myproj.com/clmgr-lrm/pkg/manager"
 )
 
 func main() {
@@ -25,7 +25,7 @@ func main() {
 	}
 	fmt.Println(ag)
 
-	ag.Start()
-	time.Sleep(10 * time.Second)
-	//ag.Stop()
+	m := manager.NewManager()
+	cl := m.Run()
+	<- cl
 }

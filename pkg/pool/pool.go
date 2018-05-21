@@ -27,13 +27,13 @@ func (p *agentPool) Do(id string, act ActionType) (chan interface{}, chan error)
 	res, errCh := make(chan interface{}), make(chan error)
 
 	go func() {
-		uuid, err := uuid.Parse(id)
+		id, err := uuid.Parse(id)
 		if err != nil {
 			logger.Error("Can't parse agent uuid")
 			errCh <- err
 			return
 		}
-		ag, ok := p.pool[uuid]
+		ag, ok := p.pool[id]
 		if !ok {
 			logger.Error("Can't find uuid in agentPool")
 			errCh <- errors.New("no such uuid")
@@ -51,7 +51,6 @@ func (p *agentPool) Do(id string, act ActionType) (chan interface{}, chan error)
 	}()
 	return res, errCh
 }
-
 
 func (p *agentPool) Add(a Agent) (uuid.UUID, error) {
 	id, err := uuid.NewUUID()
