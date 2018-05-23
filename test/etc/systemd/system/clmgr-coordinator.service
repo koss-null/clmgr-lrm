@@ -1,0 +1,12 @@
+[Unit]
+Description=clmgr-coordinator service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/go/src/myproj.com/clmgr-coordinator/
+ExecStart=/usr/lib64/go/bin/go run /go/src/myproj.com/clmgr-coordinator/main.go --option=123
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,12 @@
+[Unit]
+Description=clmgr-lrm service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/go/src/myproj.com/clmgr-lrm/
+ExecStart=/usr/lib64/go/bin/go run /go/src/myproj.com/clmgr-lrm/main.go --option=123
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
